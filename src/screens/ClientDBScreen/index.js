@@ -42,7 +42,7 @@ class ClientDBScreen extends Component {
     }
 
     makeRemoteRequest = () => {
-        
+
         AsyncStorage.getItem('user_id').then((value) => {
             let body = {
                 user_id: value
@@ -186,7 +186,7 @@ class ClientDBScreen extends Component {
                     data={this.state.data}
                     renderItem={({ item }) => (
                         <TouchableOpacity
-                            onPress={( ) => { this.onItemClicked(item) }}
+                            onPress={() => { this.onItemClicked(item) }}
                         >
                             <ListItem>
                                 <ListItem.Content>
@@ -223,8 +223,20 @@ class ClientDBScreen extends Component {
                         </View>
                         <View>
                             <Text style={{ fontSize: 20, marginBottom: 20, marginTop: 20 }}>Client Entity Name: {this.state.selectedItem.client_entity_name}</Text>
-                            <Text style={{ fontSize: 20, marginBottom: 20 }}>Custom Field: {this.state.selectedItem.custom_field}</Text>
+                            {/* <Text style={{ fontSize: 20, marginBottom: 20 }}>Custom Field: {this.state.selectedItem.custom_field}</Text> */}
                             <Text style={{ fontSize: 20, marginBottom: 20 }}>Address: {this.state.selectedItem.address}</Text>
+                            {
+                                // <Text style={{ fontSize: 20, marginBottom: 20 }}>{this.state.client_info.custom_field}</Text>
+                                this.state.selectedItem.custom_field != null &&
+                                <>
+                                    {
+                                        this.state.selectedItem.custom_field.split(', ').map(item => {
+                                            return <Text style={{ fontSize: 20, marginBottom: 20 }}>{item}</Text>
+                                        })
+                                    }
+                                </>
+
+                            }
 
                         </View >
                         <View style={styles.modalBottomDivider}>

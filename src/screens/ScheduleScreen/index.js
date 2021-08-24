@@ -26,7 +26,7 @@ class SchduleScreen extends Component {
             isLoading: false,
             company_items: [],
             user_id: '',
-            company_code: 1,
+            company_code: 0,
             date: 'Select Date',
             time: 'Select Time',
             predicted_time_spent: 0,
@@ -147,10 +147,10 @@ class SchduleScreen extends Component {
         console.log("compare Date===>", compareDate)
         if (this.state.company_code === 0) {
             this.setState({ error: 'Select Company' });
-        } else if (this.state.date === '') {
+        } else if (this.state.date === '' || this.state.date == 'Select Date') {
             this.setState({ error: 'Select Date' });
-        } else if (this.state.time === '') {
-            this.setState({ error: 'Select Time' });
+        } else if (this.state.time === '' || this.state.time == 'Select Time') {
+            this.setState({ error: 'Select Time' } );
         } else if (this.state.predicted_time_spent === '') {
             this.setState({ error: 'Enter predicted time spent' });
         } else if (this.state.min_time > compareDate || this.state.max_time < compareDate) {
@@ -166,7 +166,8 @@ class SchduleScreen extends Component {
             user_id: this.state.user_id,
             client_id: this.state.company_code,
             schedule_datetime: this.state.date + " " + this.state.time,
-            predicted_time_spent: this.state.predicted_time_spent.toString()
+            predicted_time_spent: this.state.predicted_time_spent.toString(),
+            reason: this.state.upload_reason
         }
         // this.props.addSchedule(body)
         fetch(`${SERVER_URL}createNewSchedule`, {

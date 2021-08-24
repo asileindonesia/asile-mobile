@@ -674,6 +674,19 @@ class Home extends Component {
                 <Text style={{ fontSize: 20, marginBottom: 20, marginTop: 20 }}>Client Entity Name: {this.state.client_info.client_entity_name}</Text>
                 {/* <Text style={{ fontSize: 20, marginBottom: 20 }}>Client Owner Name: {this.state.client_info.custom_field}</Text> */}
                 <Text style={{ fontSize: 20, marginBottom: 20 }}>Address: {this.state.client_info.address}</Text>
+                {/* <Text style={{ fontSize: 20, marginBottom: 20 }}>{this.state.client_info.custom_field}</Text> */}
+                {
+                  // <Text style={{ fontSize: 20, marginBottom: 20 }}>{this.state.client_info.custom_field}</Text>
+                  this.state.client_info.custom_field != null &&
+                  <>
+                    {
+                      this.state.client_info.custom_field.split(', ').map(item => {
+                        return <Text style={{ fontSize: 20, marginBottom: 20 }}>{item}</Text>
+                      })
+                    }
+                  </>
+
+                }
 
               </View >
               <View style={styles.modalBottomDivider}>

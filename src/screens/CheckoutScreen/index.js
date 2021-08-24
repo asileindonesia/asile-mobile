@@ -12,7 +12,7 @@ import SimpleToast from "react-native-simple-toast";
 import AsyncStorage from '@react-native-community/async-storage';
 import { Picker } from '@react-native-community/picker'
 import { SERVER_URL } from "../../common/config";
-import Geolocation from '@react-native-community/geolocation';
+import Geolocation from 'react-native-geolocation-service';
 import { getPreciseDistance } from 'geolib';
 import moment from 'moment';
 import SignatureCapture from 'react-native-signature-capture';
@@ -69,6 +69,7 @@ class CheckoutScreen extends Component {
             error: '',
         };
         this.getCurrentLocation()
+        this.getScheduleItems()
     }
 
     componentDidMount() {
@@ -79,7 +80,7 @@ class CheckoutScreen extends Component {
         navigation.addListener('willBlur', () => {
             BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonClicked);
         });
-        this.getScheduleItems()
+        
         let curDate = this.getCurrentDate()
         let curTime = this.getCurrentTime()
         this.setState(
@@ -191,12 +192,13 @@ class CheckoutScreen extends Component {
                 })
             },
             (error) => {
+                SimpleToast.show(error)
                 this.setState({
                     ...this.state,
                     error: error
                 })
             },
-            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+            { enableHighAccuracy: false, timeout: 10000, maximumAge: 3000 },
         );
     }
 
@@ -326,7 +328,7 @@ class CheckoutScreen extends Component {
     processCheckout = async () => {
         //Check if it is in 200m
 
-        console.log(this.state.schedule_id, this.state.date + " " + this.state.time)
+        // console.log(this.state.schedule_id, this.state.date + " " + this.state.time)
         let body = {
             schedule_id: this.state.schedule_id,
             check_out_datetime: this.state.date + " " + this.state.time,
@@ -340,6 +342,7 @@ class CheckoutScreen extends Component {
             body: JSON.stringify(body)
         })
             .then(res => {
+                console.log("Sadfasdfasdfads=> ", res)
                 return res.json()
             })
             .then(res => {

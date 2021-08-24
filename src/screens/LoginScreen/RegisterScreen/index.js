@@ -67,7 +67,7 @@ class RegisterScreen extends Component {
             SimpleToast.show('Enter username', SimpleToast.SHORT);
         } else if (this.state.email === '') {
             SimpleToast.show('Enter email', SimpleToast.SHORT);
-        } else if (this.state.mobile === '' || this.state.mobile.length != 10) {
+        } else if (this.state.mobile === '' || this.state.mobile.length < 7) {
             SimpleToast.show('Enter valid phone number', SimpleToast.SHORT);
         } else if (this.state.company_code === '') {
             SimpleToast.show('Enter company code', SimpleToast.SHORT);

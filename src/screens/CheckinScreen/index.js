@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { Picker } from '@react-native-community/picker'
 import moment from 'moment';
 import { SERVER_URL } from "../../common/config";
-import Geolocation from '@react-native-community/geolocation';
+import Geolocation from 'react-native-geolocation-service';
 import { getPreciseDistance } from 'geolib';
 import { Platform, } from 'react-native';
 import SimpleToast from "react-native-simple-toast";
@@ -142,12 +142,13 @@ class CheckinScreen extends Component {
                 })
             },
             (error) => {
+                SimpleToast.show(error)
                 this.setState({
                     ...this.state,
                     error: error
                 })
             },
-            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+            { enableHighAccuracy: false, timeout: 10000, maximumAge: 3000 },
         );
     }
 

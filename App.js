@@ -36,7 +36,7 @@ const App = () => {
               message: 'This App needs to Access your location',
             },
           );
-          requestCameraPermission();
+          // requestCameraPermission();
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             //To Check, If Permission is granted
           } else {
@@ -47,30 +47,7 @@ const App = () => {
         }
       }
     };
-    const requestCameraPermission = async () => {
-      try {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.CAMERA,
-          {
-            title: "Cool Photo App Camera Permission",
-            message:
-              "Cool Photo App needs access to your camera " +
-              "so you can take awesome pictures.",
-            buttonNeutral: "Ask Me Later",
-            buttonNegative: "Cancel",
-            buttonPositive: "OK"
-          }
-        );
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          console.log("You can use the camera");
-        } else {
-          console.log("Camera permission denied");
-        }
-      } catch (err) {
-        console.warn(err);
-      }
-    };
-
+    
     console.log("Request Permission.....")
     requestLocationPermission();
     
